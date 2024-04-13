@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Training</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #f4f4f4;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 20px;
+        }
+        nav a:hover {
+            background-color: #ddd;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .contact-us {
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .contact-us input[type="text"],
+        .contact-us input[type="email"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .contact-us button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Event listener for form submission
+        $("form").submit(function(event) {
+            // Prevent default form submission
+            event.preventDefault();
+            
+            // Collect form data
+            var formData = {
+                name: $("input[name='name']").val(),
+                email: $("input[name='email']").val(),
+                course: $("input[name='course']").val()
+            };
+            
+            // Send data to the server using AJAX
+            $.ajax({
+                type: "POST",
+                url: "https://b8bdrcwrdc.execute-api.us-east-1.amazonaws.com/prod/contact_us",
+                data: JSON.stringify(formData),
+                dataType: "json",
+                contentType: "application/json", // Set content type to JSON
+                success: function(response) {
+                    // Show success message to the user
+                    alert("Thank you for your interest! We will send you course details shortly.");
+                },
+                error: function(xhr, status, error) {
+                    // Show error message to the user
+                    alert("Oops! Something went wrong. Please try again later.");
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+</head>
+<body>
+    <header>
+        <h1>AWS Training</h1>
+        <p>Learn AWS and enhance your cloud computing skills</p>
+    </header>
+    <nav>
+        <a href="#overview">Overview</a>
+        <a href="#courses">Courses</a>
+        <a href="#instructors">Instructors</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>Welcome to our AWS training website. Here you will find information about our courses, instructors, and how to get in touch with us.</p>
+        </section>
+        <section id="courses">
+            <h2>Courses</h2>
+            <p>We offer a variety of AWS courses, including:</p>
+            <ul>
+                <li>AWS Fundamentals</li>
+                <li>AWS Certified Solutions Architect</li>
+                <li>AWS Certified Developer</li>
+                <li>AWS Certified SysOps Administrator</li>
+            </ul>
+        </section>
+        <section id="instructors">
+            <h2>Instructors</h2>
+            <p>Our instructors are highly experienced AWS professionals with years of industry experience.</p>
+        </section>
+    </main>
+    <div class="contact-us">
+        <h1>You are just one step away!</h1>
+        <h2>Fill the form, I will send you course details</h2>
+        <form>
+            <input type="text" name="name" placeholder="Your Name" required><br>
+            <input type="email" name="email" placeholder="Your Email" required><br>
+            <input type="text" name="course" placeholder="Course Interested In" required><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
